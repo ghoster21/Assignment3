@@ -1,0 +1,347 @@
+---
+title: "Assignment3_BigData"
+author: "Agus Setiyawan"
+date: "4/15/2019"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=TRUE}
+climate <- read.csv ("climate_spending.csv", header = TRUE)
+library(ggplot2)
+```
+
+## Read the climate data 
+
+```{r climate}
+summary(climate)
+```
+## Make sure the data 
+
+```{r attach and names data}
+attach (climate)
+names (climate)
+```
+
+## Plot the data
+ggplot by the year(x) and gcc_spending (y) plotting by point:
+
+
+```{r plotting by point, echo=TRUE}
+ggplot(climate, aes(x = year, y =gcc_spending, color = department)) +
+  geom_point()
+```
+
+
+The gcc_spending from NASA department has displayed that high value compare between the other department, the data from 2000 to 2017 has fluctiative and the highest showed between 2000 to 2003
+
+ggplot by the year(x) and gcc_spending (y) plotting by boxplot:
+```{r plotting by boxplot}
+ggplot(climate, aes(x = year, y =gcc_spending, color = department)) +
+  geom_boxplot()
+```
+
+
+The figure of the box plot showed that any big diffrences of the data on the NASA Department on 2014. interestingly, that the small differences of the data by Interior Department on 2011. 
+
+
+ggplot by the year(x) and gcc_spending (y) plotting by line:
+```{r plotting by line}
+ggplot(climate, aes(x = year, y =gcc_spending, color = department)) +
+  geom_line()
+```
+
+
+Plotting the climate data sort by department and time series by year. 
+the figure showed that the gcc_spending has fluctuative by the all department, but NASA Department showed the high value compare to the other Department. 
+
+## log by gcc_spending
+
+```{r log plotting}
+df=climate
+df$lngcc_spending = log(df$gcc_spending)
+```
+
+## summary
+
+```{r summary of the log gcc_spending}
+summary(df)
+```
+
+## plotting log linear model by the department based on the time series (year):
+```{r plotting of the log gcc_spending linear model}
+
+ggplot(climate, aes(x = year, y = gcc_spending, color = factor(year)))+
+  geom_point() + scale_x_log10() + geom_smooth(method = "lm") + facet_wrap(~department)
+```
+plotting by the linear and the year as factor, showed that the NASA Department has a high value and fluctuative from 2000 - 2017. 
+
+## plotting log GLM by the department based on the time series (year):
+```{r plotting of the log gcc_spending glm}
+
+ggplot(climate, aes(x = year, y = gcc_spending, color = factor(year)))+
+  geom_point() + scale_x_log10() + geom_smooth(method = "glm") + facet_wrap (~department)
+```
+plotting by the GLM has showed that the similar result with liner model plotting. 
+
+
+## analysis Generalized Linear Model (GLM)
+
+```{r anova climate}
+
+glm_climate <- glm(year ~ gcc_spending + department, family = gaussian, data = climate)
+```
+
+## summary of the GLM (Genaralized Linear Model)
+
+```{r summary of glm climate}
+summary (glm_climate)
+```
+the result of the GLM analysis showed that the significant by the NASA Departmen and gcc_spending, the start meaning is the significantly by the year. 
+
+## Test Anova
+```{r anova test glm climate }
+anova(glm_climate)
+```
+the test anova showed that the Df value for the gcc_spending higher than Dpeartment by the time series data (year)
+
+## Plot The GLM
+```{r plot the GLM climate}
+plot (glm_climate)
+```
+
+Generalized linear model for the climate data was displayed that the significantly to the NASA department by year.
+GLM analysis is describe that the factor influencing to the variable. 
+
+
+
+## Read the Energy Data
+
+#Read the CSV data
+Read the CSV data from directory:
+
+```{r Read the data of Energy}
+energy <- read.csv ("energy_spending.csv", header = TRUE)
+```
+
+## Summary
+
+```{r energy}
+summary(energy)
+```
+
+## Attach and Str the Data
+```{r energy_attach}
+attach (energy)
+str (energy)
+names (energy)
+```
+
+## Plot
+
+plotting the data by point ggplot:
+```{r energy_plot}
+ggplot(energy, aes(x = year, y =energy_spending, color = department)) +
+   geom_point()
+```
+The figure showed that the data for the energy spending has significantly increase from 1997 until 2018 by the Atomic Energy Defense Department. not only that Department, if we can see on the Adv. Sci Comp Res Department showed that increase as well, but honestly start from 2010 has decreased. 
+
+plotting the data by boxplot ggplot:
+```{r plotting_boxplot}
+ggplot(energy, aes(x = year, y =energy_spending, color = department)) +
+   geom_boxplot()
+```
+The figure showed that any big differences on the Atomic Energy Defense Department in the 2000 and also any differences by the Adv Sci Comp Res Department in the 2016 compare to the other Department by time series data from 1997 - 2018. 
+
+
+Plotting the data by line ggplot:
+```{r plotting_line}
+ggplot(energy, aes(x = year, y =energy_spending, color = department)) +
+   geom_line()
+```
+The figure showed that the Atomic Energy Defense Department has fluctiative from 1997 until 2017 same as Atomic Energy Defense. but, both of it has high value of energy spending compare to the other Department. 
+The data has recorded from 1997 until 2018. 
+
+## plotting log linear model by the department based on the time series (year):
+```{r plotting_lm_ggplot}
+ggplot(energy, aes(x = year, y = energy_spending, color = factor(year)))+
+  geom_point() + scale_x_log10() + geom_smooth(method = "lm") + facet_wrap(~department)
+```
+The figure showed that the Atomic Energy Defense Department has a high value of the energy spending over the year from 1997 - 2018. As same thet the Office of Science R&D Department has displayed that the value is high over the year start from 1997 until 2018
+
+## plotting log glm by the department based on the time series (year):
+```{r plotting_glm_ggplot}
+ggplot(energy, aes(x = year, y = energy_spending, color = factor(year)))+
+  geom_point() + scale_x_log10() + geom_smooth(method = "glm") + facet_wrap (~department)
+```
+The figure displayed that not any difference with the lm ggplot as displayed above, the value is high showed on the 2 Department (Atomic Energy Defense and Office of Science R&D Department)
+
+## analysis Generalized Linear Model (GLM)
+
+```{r anova glm energy}
+
+glm_energy <- glm(year ~ energy_spending + department, family = gaussian, data = energy)
+```
+
+## summary of the GLM (Genaralized Linear Model)
+
+```{r summary of glm energy}
+summary (glm_energy)
+```
+The analysis of GLM showed that the significantly factor to the variable by the Department are Energy Defense Department, Basic Energy Science Department, Energy Efficiency and Renew Energy Department, Office of Science R&D Department and High-Energy Physics Department. 
+The Stars meaning that any differences factor to the variable of the year. 
+
+## Anova Test
+```{r anova_test of energy }
+anova(glm_energy)
+```
+The Anova test showed that the Df value is high to the Energy Spending than Department, also the Residual Deviasi for 2 factor that the energy spending has higher than Department value. 
+
+#Plot GLM
+```{r plottig of energy data by glm}
+plot (glm_energy)
+```
+
+Generalized Linear Model for analysis is to estimate the factor influence by the time series (year) from 1997 - 2018. 
+
+
+## Read the RD Data
+
+## Read the CSV data
+
+```{r Read the rd Data} 
+rd <- read.csv ("fed_r_d_spending.csv", header = TRUE)
+library(ggplot2)
+```
+
+## Summary
+```{r summary rd}
+summary (rd)
+```
+
+## Attach the data
+```{r attach the data}
+attach (rd)
+str (rd)
+
+names (rd)
+```
+
+## The type of the Variable
+```{r type of the variable}
+
+typeof (rd$rd_budget)
+typeof (rd$total_outlays)
+typeof (rd$discretionary_outlays)
+typeof (rd$gdp)
+```
+
+#Plotting
+
+Plotting the data rd (x = year, y = rd_budget): 
+```{r plotting the ggplot}
+ggplot(rd, aes( x = year, y = rd_budget, color = total_outlays)) +
+  geom_point()
+```
+The figure displayed that the rd_budget over time has increased from 1997 to 2018 by based on the total outylays inform that the total outlays has incrreasing as well over the time. 
+
+
+Plotting the data rd (x = year, y = rd_budget, based on the gdp):
+```{r plotting the ggplot 1}
+ggplot(rd, aes( x = year, y = rd_budget, color = gdp)) +
+  geom_point()
+```
+The figure dispyaed that the rd_budget has increased over time, as well as gdp has increased over time. 
+
+
+Plottting the data (x = year, y = rd_budget, based on the discreet outlays): 
+```{r plotting the ggplot 2}
+ggplot(rd, aes( x = year, y = rd_budget, color = discretionary_outlays)) +
+  geom_point()
+```
+The figure showed that the rd_budget has increased over time based on the discretionary_outlays. 
+
+
+Plotting the data (x = year, y = rd_budget based on the Department):
+```{r plot the data by ggplot 3}
+ggplot(rd, aes( x = year, y = rd_budget, color = department)) +
+  geom_point()
+```
+The figure displayed that based on the Department (DOD) has fluctuative over the time (1997 - 2018) and has a high value of the budget compare to the other Departement. 
+
+
+Plotting the data by linear model use the ggplot year and gdp: 
+```{r plotting the data by ggplot 4}
+ggplot(rd, aes(x = year, y =gdp)) +
+  geom_point() + geom_smooth(method="lm") + facet_wrap (~department)
+```
+The figure displayed that based on the linear model showed the gdp has increase over time time based on the all Department. 
+
+
+Plotting the data by linear model use the ggplot year and budget:
+```{r plotting the data by ggplot 5}
+ggplot(rd, aes(x = year, y =rd_budget)) +
+  geom_point() + geom_smooth(method="lm") + facet_wrap (~department)
+```
+The figure showed that DOD department has fluctuative distribution over the time, we can see that the increase of the budget has high significant increase over the time by linear model, also we can see the high slope. 
+NHS and NIH department are showed that increase significant compare than the other department, but the DOD Department has a high significantly increase over time. 
+
+
+Plotting the data by linear model use the ggplot year and total outlays:
+```{r plottimg the data by ggplot 6}
+ggplot(rd, aes(x = year, y =total_outlays)) +
+  geom_point() + geom_smooth(method="lm") + facet_wrap (~department)
+```
+The figure displayed that based on the total outlays over the time has increase, and the data fit to the line by linear model, it means that the data over time has significantly increase on the all Department over the time. 
+
+
+Plotting the data by linear model use the ggplot year and discretionary outlays:
+```{r plotting the data by ggplot 7}
+ggplot(rd, aes(x = year, y =discretionary_outlays)) +
+  geom_point() + geom_smooth(method="lm") + facet_wrap (~department)
+```
+The figure showed that over the time based on the all Department by the discretionary outlays has increased and the linear model has fitted to the line, it means that the data has increased significantly. 
+
+
+Plotting the data by glm on the ggplot over the time: 
+```{r plotting the data by ggplot-glm 1}
+ggplot(rd, aes(x = year, y = total_outlays, color = gdp))+
+  geom_point() + scale_x_log10() + geom_smooth(method = "glm")
+```
+The figure dispyaed that the total overlays data over the time has increased. The model has fitted to the data, it means that the data has increased significantly  over the time. 
+
+
+Plotting the data by glm on the ggplot over the time:
+```{r plotting the data by ggplot - glm 2}
+ggplot(rd, aes(x = year, y = total_outlays, color = rd_budget))+
+  geom_point() + scale_x_log10() + geom_smooth(method = "glm")
+```
+The figure showed that the rd budget has a low over time based on the color, but the total outlays has increased over the time. The data fitted to the line by glm, it means that the data has increased significantly over the time. 
+
+
+## GLM (Generalized Linear Model) Analysis 
+The GLM analysis is to assess what is the factor influence by the total outlays: m
+```{r GLM analysis}
+glm_rd <- glm(total_outlays ~ year + rd_budget + department + gdp + discretionary_outlays, family = gaussian, data = rd)
+```
+
+##Summary
+```{r summary glm rd}
+summary (glm_rd)
+```
+The result showed that the factor influences significantly are year, rd budget, department DOC, gdp and discreetionary outlays. 
+The start meaning that has significantly influences to the variable. 
+
+## Plotting the GLM
+plotting the GLM result :
+```{r glm plotting the rd data}
+plot(glm_rd)
+```
+
+## Anova Test
+```{r Anova test of rd GLM}
+anova(glm_rd)
+```
+The analysis of anova showed that the year has a high value for the Df and the residuls deviance showed that gdp has low residuals. The high residuals Deviance value is discretionary outlays.
+

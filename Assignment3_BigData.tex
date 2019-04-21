@@ -1,0 +1,1032 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Assignment3\_BigData},
+            pdfauthor={Agus Setiyawan},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Assignment3\_BigData}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Agus Setiyawan}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{4/15/2019}
+
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{climate <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{ (}\StringTok{"climate_spending.csv"}\NormalTok{, }\DataTypeTok{header =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Read the climate data}\label{read-the-climate-data}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(climate)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            department      year       gcc_spending      
+##  Agriculture    :18   Min.   :2000   Min.   :3.113e+07  
+##  All Other      :18   1st Qu.:2004   1st Qu.:7.604e+07  
+##  Commerce (NOAA):18   Median :2008   Median :1.552e+08  
+##  Energy         :18   Mean   :2008   Mean   :3.465e+08  
+##  Interior       :18   3rd Qu.:2013   3rd Qu.:3.209e+08  
+##  NASA           :18   Max.   :2017   Max.   :1.676e+09  
+##  NSF            :18
+\end{verbatim}
+
+\subsection{Make sure the data}\label{make-sure-the-data}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{attach}\NormalTok{ (climate)}
+\KeywordTok{names}\NormalTok{ (climate)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "department"   "year"         "gcc_spending"
+\end{verbatim}
+
+\subsection{Plot the data}\label{plot-the-data}
+
+ggplot by the year(x) and gcc\_spending (y) plotting by point:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(climate, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{gcc_spending, }\DataTypeTok{color =}\NormalTok{ department)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment3_BigData_files/figure-latex/plotting by point-1.pdf}
+
+The gcc\_spending from NASA department has displayed that high value
+compare between the other department, the data from 2000 to 2017 has
+fluctiative and the highest showed between 2000 to 2003
+
+ggplot by the year(x) and gcc\_spending (y) plotting by boxplot:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(climate, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{gcc_spending, }\DataTypeTok{color =}\NormalTok{ department)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_boxplot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment3_BigData_files/figure-latex/plotting by boxplot-1.pdf}
+
+The figure of the box plot showed that any big diffrences of the data on
+the NASA Department on 2014. interestingly, that the small differences
+of the data by Interior Department on 2011.
+
+ggplot by the year(x) and gcc\_spending (y) plotting by line:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(climate, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{gcc_spending, }\DataTypeTok{color =}\NormalTok{ department)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment3_BigData_files/figure-latex/plotting by line-1.pdf}
+
+Plotting the climate data sort by department and time series by year.
+the figure showed that the gcc\_spending has fluctuative by the all
+department, but NASA Department showed the high value compare to the
+other Department.
+
+\subsection{log by gcc\_spending}\label{log-by-gcc_spending}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df=climate}
+\NormalTok{df}\OperatorTok{$}\NormalTok{lngcc_spending =}\StringTok{ }\KeywordTok{log}\NormalTok{(df}\OperatorTok{$}\NormalTok{gcc_spending)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{summary}\label{summary}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            department      year       gcc_spending       lngcc_spending 
+##  Agriculture    :18   Min.   :2000   Min.   :3.113e+07   Min.   :17.25  
+##  All Other      :18   1st Qu.:2004   1st Qu.:7.604e+07   1st Qu.:18.15  
+##  Commerce (NOAA):18   Median :2008   Median :1.552e+08   Median :18.86  
+##  Energy         :18   Mean   :2008   Mean   :3.465e+08   Mean   :19.02  
+##  Interior       :18   3rd Qu.:2013   3rd Qu.:3.209e+08   3rd Qu.:19.59  
+##  NASA           :18   Max.   :2017   Max.   :1.676e+09   Max.   :21.24  
+##  NSF            :18
+\end{verbatim}
+
+\subsection{plotting log linear model by the department based on the
+time series
+(year):}\label{plotting-log-linear-model-by-the-department-based-on-the-time-series-year}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(climate, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{ gcc_spending, }\DataTypeTok{color =} \KeywordTok{factor}\NormalTok{(year)))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_x_log10}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\NormalTok{department)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment3_BigData_files/figure-latex/plotting of the log gcc_spending linear model-1.pdf}
+plotting by the linear and the year as factor, showed that the NASA
+Department has a high value and fluctuative from 2000 - 2017.
+
+\subsection{plotting log GLM by the department based on the time series
+(year):}\label{plotting-log-glm-by-the-department-based-on-the-time-series-year}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(climate, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{ gcc_spending, }\DataTypeTok{color =} \KeywordTok{factor}\NormalTok{(year)))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_x_log10}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"glm"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{facet_wrap}\NormalTok{ (}\OperatorTok{~}\NormalTok{department)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment3_BigData_files/figure-latex/plotting of the log gcc_spending glm-1.pdf}
+plotting by the GLM has showed that the similar result with liner model
+plotting.
+
+\subsection{analysis Generalized Linear Model
+(GLM)}\label{analysis-generalized-linear-model-glm}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{glm_climate <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(year }\OperatorTok{~}\StringTok{ }\NormalTok{gcc_spending }\OperatorTok{+}\StringTok{ }\NormalTok{department, }\DataTypeTok{family =}\NormalTok{ gaussian, }\DataTypeTok{data =}\NormalTok{ climate)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{summary of the GLM (Genaralized Linear
+Model)}\label{summary-of-the-glm-genaralized-linear-model}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{ (glm_climate)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = year ~ gcc_spending + department, family = gaussian, 
+##     data = climate)
+## 
+## Deviance Residuals: 
+##      Min        1Q    Median        3Q       Max  
+## -11.2060   -4.2741    0.4521    4.3017    9.1212  
+## 
+## Coefficients:
+##                             Estimate Std. Error  t value Pr(>|t|)    
+## (Intercept)                2.007e+03  1.348e+00 1488.739  < 2e-16 ***
+## gcc_spending               1.698e-08  6.219e-09    2.730  0.00731 ** 
+## departmentAll Other        7.815e-02  1.733e+00    0.045  0.96412    
+## departmentCommerce (NOAA) -3.450e+00  2.145e+00   -1.608  0.11042    
+## departmentEnergy          -1.596e+00  1.829e+00   -0.872  0.38473    
+## departmentInterior         7.265e-01  1.753e+00    0.414  0.67938    
+## departmentNASA            -2.277e+01  8.519e+00   -2.673  0.00859 ** 
+## departmentNSF             -3.429e+00  2.141e+00   -1.602  0.11182    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for gaussian family taken to be 27.03431)
+## 
+##     Null deviance: 3391.5  on 125  degrees of freedom
+## Residual deviance: 3190.0  on 118  degrees of freedom
+## AIC: 782.74
+## 
+## Number of Fisher Scoring iterations: 2
+\end{verbatim}
+
+the result of the GLM analysis showed that the significant by the NASA
+Departmen and gcc\_spending, the start meaning is the significantly by
+the year.
+
+\subsection{Test Anova}\label{test-anova}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{anova}\NormalTok{(glm_climate)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Deviance Table
+## 
+## Model: gaussian, link: identity
+## 
+## Response: year
+## 
+## Terms added sequentially (first to last)
+## 
+## 
+##              Df Deviance Resid. Df Resid. Dev
+## NULL                           125     3391.5
+## gcc_spending  1    5.318       124     3386.2
+## department    6  196.134       118     3190.0
+\end{verbatim}
+
+the test anova showed that the Df value for the gcc\_spending higher
+than Dpeartment by the time series data (year)
+
+\subsection{Plot The GLM}\label{plot-the-glm}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{ (glm_climate)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment3_BigData_files/figure-latex/plot the GLM climate-1.pdf}
+\includegraphics{Assignment3_BigData_files/figure-latex/plot the GLM climate-2.pdf}
+\includegraphics{Assignment3_BigData_files/figure-latex/plot the GLM climate-3.pdf}
+\includegraphics{Assignment3_BigData_files/figure-latex/plot the GLM climate-4.pdf}
+
+Generalized linear model for the climate data was displayed that the
+significantly to the NASA department by year. GLM analysis is describe
+that the factor influencing to the variable.
+
+\subsection{Read the Energy Data}\label{read-the-energy-data}
+
+\section{Read the CSV data}\label{read-the-csv-data}
+
+Read the CSV data from directory:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{energy <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{ (}\StringTok{"energy_spending.csv"}\NormalTok{, }\DataTypeTok{header =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Summary}\label{summary-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(energy)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                               department       year     
+##  Adv Sci Comp Res*                 : 22   Min.   :1997  
+##  Atomic Energy Defense             : 22   1st Qu.:2002  
+##  Basic Energy Sciences*            : 22   Median :2008  
+##  Bio and Env Research*             : 22   Mean   :2008  
+##  Energy Efficiency and Renew Energy: 22   3rd Qu.:2013  
+##  Fossil Energy                     : 22   Max.   :2018  
+##  (Other)                           :110                 
+##  energy_spending    
+##  Min.   :5.690e+07  
+##  1st Qu.:4.762e+08  
+##  Median :6.948e+08  
+##  Mean   :1.456e+09  
+##  3rd Qu.:1.357e+09  
+##  Max.   :7.574e+09  
+## 
+\end{verbatim}
+
+\subsection{Attach and Str the Data}\label{attach-and-str-the-data}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{attach}\NormalTok{ (energy)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## The following objects are masked from climate:
+## 
+##     department, year
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{str}\NormalTok{ (energy)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    242 obs. of  3 variables:
+##  $ department     : Factor w/ 11 levels "Adv Sci Comp Res*",..: 11 1 3 4 7 8 10 5 9 6 ...
+##  $ year           : int  1997 1997 1997 1997 1997 1997 1997 1997 1997 1997 ...
+##  $ energy_spending: num  3.59e+09 2.17e+08 9.33e+08 5.51e+08 3.31e+08 ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{names}\NormalTok{ (energy)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "department"      "year"            "energy_spending"
+\end{verbatim}
+
+\subsection{Plot}\label{plot}
+
+plotting the data by point ggplot:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(energy, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{energy_spending, }\DataTypeTok{color =}\NormalTok{ department)) }\OperatorTok{+}
+\StringTok{   }\KeywordTok{geom_point}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment3_BigData_files/figure-latex/energy_plot-1.pdf}
+The figure showed that the data for the energy spending has
+significantly increase from 1997 until 2018 by the Atomic Energy Defense
+Department. not only that Department, if we can see on the Adv. Sci Comp
+Res Department showed that increase as well, but honestly start from
+2010 has decreased.
+
+plotting the data by boxplot ggplot:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(energy, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{energy_spending, }\DataTypeTok{color =}\NormalTok{ department)) }\OperatorTok{+}
+\StringTok{   }\KeywordTok{geom_boxplot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment3_BigData_files/figure-latex/plotting_boxplot-1.pdf}
+The figure showed that any big differences on the Atomic Energy Defense
+Department in the 2000 and also any differences by the Adv Sci Comp Res
+Department in the 2016 compare to the other Department by time series
+data from 1997 - 2018.
+
+Plotting the data by line ggplot:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(energy, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{energy_spending, }\DataTypeTok{color =}\NormalTok{ department)) }\OperatorTok{+}
+\StringTok{   }\KeywordTok{geom_line}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment3_BigData_files/figure-latex/plotting_line-1.pdf}
+The figure showed that the Atomic Energy Defense Department has
+fluctiative from 1997 until 2017 same as Atomic Energy Defense. but,
+both of it has high value of energy spending compare to the other
+Department. The data has recorded from 1997 until 2018.
+
+\subsection{plotting log linear model by the department based on the
+time series
+(year):}\label{plotting-log-linear-model-by-the-department-based-on-the-time-series-year-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(energy, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{ energy_spending, }\DataTypeTok{color =} \KeywordTok{factor}\NormalTok{(year)))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_x_log10}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\NormalTok{department)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment3_BigData_files/figure-latex/plotting_lm_ggplot-1.pdf}
+The figure showed that the Atomic Energy Defense Department has a high
+value of the energy spending over the year from 1997 - 2018. As same
+thet the Office of Science R\&D Department has displayed that the value
+is high over the year start from 1997 until 2018
+
+\subsection{plotting log glm by the department based on the time series
+(year):}\label{plotting-log-glm-by-the-department-based-on-the-time-series-year-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(energy, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{ energy_spending, }\DataTypeTok{color =} \KeywordTok{factor}\NormalTok{(year)))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_x_log10}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"glm"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{facet_wrap}\NormalTok{ (}\OperatorTok{~}\NormalTok{department)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment3_BigData_files/figure-latex/plotting_glm_ggplot-1.pdf}
+The figure displayed that not any difference with the lm ggplot as
+displayed above, the value is high showed on the 2 Department (Atomic
+Energy Defense and Office of Science R\&D Department)
+
+\subsection{analysis Generalized Linear Model
+(GLM)}\label{analysis-generalized-linear-model-glm-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{glm_energy <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(year }\OperatorTok{~}\StringTok{ }\NormalTok{energy_spending }\OperatorTok{+}\StringTok{ }\NormalTok{department, }\DataTypeTok{family =}\NormalTok{ gaussian, }\DataTypeTok{data =}\NormalTok{ energy)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{summary of the GLM (Genaralized Linear
+Model)}\label{summary-of-the-glm-genaralized-linear-model-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{ (glm_energy)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = year ~ energy_spending + department, family = gaussian, 
+##     data = energy)
+## 
+## Deviance Residuals: 
+##      Min        1Q    Median        3Q       Max  
+## -11.7463   -4.0891   -0.0892    4.2582   10.4473  
+## 
+## Coefficients:
+##                                                Estimate Std. Error
+## (Intercept)                                   2.004e+03  1.216e+00
+## energy_spending                               8.968e-09  9.140e-10
+## departmentAtomic Energy Defense              -4.227e+01  4.612e+00
+## departmentBasic Energy Sciences*             -1.015e+01  1.945e+00
+## departmentBio and Env Research*              -2.321e+00  1.664e+00
+## departmentEnergy Efficiency and Renew Energy -6.038e+00  1.759e+00
+## departmentFossil Energy                      -1.169e+00  1.652e+00
+## departmentFusion Energy Sciences*            -7.648e-02  1.647e+00
+## departmentHigh-Energy Physics*               -4.555e+00  1.712e+00
+## departmentNuclear Energy                     -5.946e-01  1.649e+00
+## departmentNuclear Physics*                   -1.384e+00  1.653e+00
+## departmentOffice of Science R&D              -3.749e+01  4.161e+00
+##                                               t value Pr(>|t|)    
+## (Intercept)                                  1648.525  < 2e-16 ***
+## energy_spending                                 9.812  < 2e-16 ***
+## departmentAtomic Energy Defense                -9.165  < 2e-16 ***
+## departmentBasic Energy Sciences*               -5.220    4e-07 ***
+## departmentBio and Env Research*                -1.394 0.164521    
+## departmentEnergy Efficiency and Renew Energy   -3.433 0.000707 ***
+## departmentFossil Energy                        -0.708 0.479881    
+## departmentFusion Energy Sciences*              -0.046 0.963015    
+## departmentHigh-Energy Physics*                 -2.661 0.008330 ** 
+## departmentNuclear Energy                       -0.361 0.718681    
+## departmentNuclear Physics*                     -0.837 0.403358    
+## departmentOffice of Science R&D                -9.011  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for gaussian family taken to be 29.85287)
+## 
+##     Null deviance: 9740.5  on 241  degrees of freedom
+## Residual deviance: 6866.2  on 230  degrees of freedom
+## AIC: 1522.4
+## 
+## Number of Fisher Scoring iterations: 2
+\end{verbatim}
+
+The analysis of GLM showed that the significantly factor to the variable
+by the Department are Energy Defense Department, Basic Energy Science
+Department, Energy Efficiency and Renew Energy Department, Office of
+Science R\&D Department and High-Energy Physics Department. The Stars
+meaning that any differences factor to the variable of the year.
+
+\subsection{Anova Test}\label{anova-test}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{anova}\NormalTok{(glm_energy)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Deviance Table
+## 
+## Model: gaussian, link: identity
+## 
+## Response: year
+## 
+## Terms added sequentially (first to last)
+## 
+## 
+##                 Df Deviance Resid. Df Resid. Dev
+## NULL                              241     9740.5
+## energy_spending  1   152.03       240     9588.5
+## department      10  2722.31       230     6866.2
+\end{verbatim}
+
+The Anova test showed that the Df value is high to the Energy Spending
+than Department, also the Residual Deviasi for 2 factor that the energy
+spending has higher than Department value.
+
+\section{Plot GLM}\label{plot-glm}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{ (glm_energy)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment3_BigData_files/figure-latex/plottig of energy data by glm-1.pdf}
+\includegraphics{Assignment3_BigData_files/figure-latex/plottig of energy data by glm-2.pdf}
+\includegraphics{Assignment3_BigData_files/figure-latex/plottig of energy data by glm-3.pdf}
+\includegraphics{Assignment3_BigData_files/figure-latex/plottig of energy data by glm-4.pdf}
+
+Generalized Linear Model for analysis is to estimate the factor
+influence by the time series (year) from 1997 - 2018.
+
+\subsection{Read the RD Data}\label{read-the-rd-data}
+
+\subsection{Read the CSV data}\label{read-the-csv-data-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rd <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{ (}\StringTok{"fed_r_d_spending.csv"}\NormalTok{, }\DataTypeTok{header =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Summary}\label{summary-2}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{ (rd)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    department       year        rd_budget         total_outlays      
+##  DHS    : 42   Min.   :1976   Min.   :0.000e+00   Min.   :3.718e+11  
+##  DOC    : 42   1st Qu.:1986   1st Qu.:9.020e+08   1st Qu.:9.904e+11  
+##  DOD    : 42   Median :1996   Median :1.888e+09   Median :1.581e+12  
+##  DOE    : 42   Mean   :1996   Mean   :1.035e+10   Mean   :1.880e+12  
+##  DOT    : 42   3rd Qu.:2007   3rd Qu.:1.206e+10   3rd Qu.:2.729e+12  
+##  EPA    : 42   Max.   :2017   Max.   :9.432e+10   Max.   :3.982e+12  
+##  (Other):336                                                         
+##  discretionary_outlays      gdp           
+##  Min.   :1.756e+11     Min.   :1.790e+12  
+##  1st Qu.:4.385e+11     1st Qu.:4.536e+12  
+##  Median :5.460e+11     Median :8.230e+12  
+##  Mean   :6.942e+11     Mean   :9.175e+12  
+##  3rd Qu.:1.042e+12     3rd Qu.:1.432e+13  
+##  Max.   :1.347e+12     Max.   :1.918e+13  
+## 
+\end{verbatim}
+
+\subsection{Attach the data}\label{attach-the-data}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{attach}\NormalTok{ (rd)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## The following objects are masked from energy:
+## 
+##     department, year
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from climate:
+## 
+##     department, year
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{str}\NormalTok{ (rd)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    588 obs. of  6 variables:
+##  $ department           : Factor w/ 14 levels "DHS","DOC","DOD",..: 3 9 4 7 10 11 13 8 5 6 ...
+##  $ year                 : int  1976 1976 1976 1976 1976 1976 1976 1976 1976 1976 ...
+##  $ rd_budget            : num  3.57e+10 1.25e+10 1.09e+10 9.23e+09 8.02e+09 ...
+##  $ total_outlays        : num  3.72e+11 3.72e+11 3.72e+11 3.72e+11 3.72e+11 ...
+##  $ discretionary_outlays: num  1.76e+11 1.76e+11 1.76e+11 1.76e+11 1.76e+11 ...
+##  $ gdp                  : num  1.79e+12 1.79e+12 1.79e+12 1.79e+12 1.79e+12 ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{names}\NormalTok{ (rd)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "department"            "year"                  "rd_budget"            
+## [4] "total_outlays"         "discretionary_outlays" "gdp"
+\end{verbatim}
+
+\subsection{The type of the Variable}\label{the-type-of-the-variable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{typeof}\NormalTok{ (rd}\OperatorTok{$}\NormalTok{rd_budget)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "double"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{typeof}\NormalTok{ (rd}\OperatorTok{$}\NormalTok{total_outlays)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "double"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{typeof}\NormalTok{ (rd}\OperatorTok{$}\NormalTok{discretionary_outlays)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "double"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{typeof}\NormalTok{ (rd}\OperatorTok{$}\NormalTok{gdp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "double"
+\end{verbatim}
+
+\section{Plotting}\label{plotting}
+
+Plotting the data rd (x = year, y = rd\_budget):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(rd, }\KeywordTok{aes}\NormalTok{( }\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{ rd_budget, }\DataTypeTok{color =}\NormalTok{ total_outlays)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment3_BigData_files/figure-latex/plotting the ggplot-1.pdf}
+The figure displayed that the rd\_budget over time has increased from
+1997 to 2018 by based on the total outylays inform that the total
+outlays has incrreasing as well over the time.
+
+Plotting the data rd (x = year, y = rd\_budget, based on the gdp):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(rd, }\KeywordTok{aes}\NormalTok{( }\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{ rd_budget, }\DataTypeTok{color =}\NormalTok{ gdp)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment3_BigData_files/figure-latex/plotting the ggplot 1-1.pdf}
+The figure dispyaed that the rd\_budget has increased over time, as well
+as gdp has increased over time.
+
+Plottting the data (x = year, y = rd\_budget, based on the discreet
+outlays):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(rd, }\KeywordTok{aes}\NormalTok{( }\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{ rd_budget, }\DataTypeTok{color =}\NormalTok{ discretionary_outlays)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment3_BigData_files/figure-latex/plotting the ggplot 2-1.pdf}
+The figure showed that the rd\_budget has increased over time based on
+the discretionary\_outlays.
+
+Plotting the data (x = year, y = rd\_budget based on the Department):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(rd, }\KeywordTok{aes}\NormalTok{( }\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{ rd_budget, }\DataTypeTok{color =}\NormalTok{ department)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment3_BigData_files/figure-latex/plot the data by ggplot 3-1.pdf}
+The figure displayed that based on the Department (DOD) has fluctuative
+over the time (1997 - 2018) and has a high value of the budget compare
+to the other Departement.
+
+Plotting the data by linear model use the ggplot year and gdp:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(rd, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{gdp)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method=}\StringTok{"lm"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{facet_wrap}\NormalTok{ (}\OperatorTok{~}\NormalTok{department)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment3_BigData_files/figure-latex/plotting the data by ggplot 4-1.pdf}
+The figure displayed that based on the linear model showed the gdp has
+increase over time time based on the all Department.
+
+Plotting the data by linear model use the ggplot year and budget:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(rd, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{rd_budget)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method=}\StringTok{"lm"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{facet_wrap}\NormalTok{ (}\OperatorTok{~}\NormalTok{department)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment3_BigData_files/figure-latex/plotting the data by ggplot 5-1.pdf}
+The figure showed that DOD department has fluctuative distribution over
+the time, we can see that the increase of the budget has high
+significant increase over the time by linear model, also we can see the
+high slope. NHS and NIH department are showed that increase significant
+compare than the other department, but the DOD Department has a high
+significantly increase over time.
+
+Plotting the data by linear model use the ggplot year and total outlays:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(rd, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{total_outlays)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method=}\StringTok{"lm"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{facet_wrap}\NormalTok{ (}\OperatorTok{~}\NormalTok{department)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment3_BigData_files/figure-latex/plottimg the data by ggplot 6-1.pdf}
+The figure displayed that based on the total outlays over the time has
+increase, and the data fit to the line by linear model, it means that
+the data over time has significantly increase on the all Department over
+the time.
+
+Plotting the data by linear model use the ggplot year and discretionary
+outlays:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(rd, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{discretionary_outlays)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method=}\StringTok{"lm"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{facet_wrap}\NormalTok{ (}\OperatorTok{~}\NormalTok{department)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment3_BigData_files/figure-latex/plotting the data by ggplot 7-1.pdf}
+The figure showed that over the time based on the all Department by the
+discretionary outlays has increased and the linear model has fitted to
+the line, it means that the data has increased significantly.
+
+Plotting the data by glm on the ggplot over the time:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(rd, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{ total_outlays, }\DataTypeTok{color =}\NormalTok{ gdp))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_x_log10}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"glm"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment3_BigData_files/figure-latex/plotting the data by ggplot-glm 1-1.pdf}
+The figure dispyaed that the total overlays data over the time has
+increased. The model has fitted to the data, it means that the data has
+increased significantly over the time.
+
+Plotting the data by glm on the ggplot over the time:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(rd, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{ total_outlays, }\DataTypeTok{color =}\NormalTok{ rd_budget))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_x_log10}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"glm"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment3_BigData_files/figure-latex/plotting the data by ggplot - glm 2-1.pdf}
+The figure showed that the rd budget has a low over time based on the
+color, but the total outlays has increased over the time. The data
+fitted to the line by glm, it means that the data has increased
+significantly over the time.
+
+\subsection{GLM (Generalized Linear Model)
+Analysis}\label{glm-generalized-linear-model-analysis}
+
+The GLM analysis is to assess what is the factor influence by the total
+outlays: m
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{glm_rd <-}\StringTok{ }\KeywordTok{glm}\NormalTok{(total_outlays }\OperatorTok{~}\StringTok{ }\NormalTok{year }\OperatorTok{+}\StringTok{ }\NormalTok{rd_budget }\OperatorTok{+}\StringTok{ }\NormalTok{department }\OperatorTok{+}\StringTok{ }\NormalTok{gdp }\OperatorTok{+}\StringTok{ }\NormalTok{discretionary_outlays, }\DataTypeTok{family =}\NormalTok{ gaussian, }\DataTypeTok{data =}\NormalTok{ rd)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Summary}\label{summary-3}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{ (glm_rd)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = total_outlays ~ year + rd_budget + department + 
+##     gdp + discretionary_outlays, family = gaussian, data = rd)
+## 
+## Deviance Residuals: 
+##        Min          1Q      Median          3Q         Max  
+## -2.647e+11  -2.075e+10   1.154e+10   4.934e+10   3.322e+11  
+## 
+## Coefficients:
+##                         Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)            3.142e+13  5.447e+12   5.769 1.31e-08 ***
+## year                  -1.599e+10  2.758e+09  -5.800 1.10e-08 ***
+## rd_budget             -2.598e+00  7.958e-01  -3.265  0.00116 ** 
+## departmentDOC          2.215e+09  2.324e+10   0.095  0.92411    
+## departmentDOD          1.671e+11  5.620e+10   2.973  0.00308 ** 
+## departmentDOE          2.989e+10  2.497e+10   1.197  0.23182    
+## departmentDOT          1.400e+09  2.324e+10   0.060  0.95198    
+## departmentEPA          9.650e+08  2.323e+10   0.042  0.96688    
+## departmentHHS          5.694e+10  2.905e+10   1.960  0.05047 .  
+## departmentInterior     1.355e+09  2.323e+10   0.058  0.95351    
+## departmentNASA         3.056e+10  2.505e+10   1.220  0.22297    
+## departmentNIH          5.388e+10  2.850e+10   1.891  0.05917 .  
+## departmentNSF          9.508e+09  2.341e+10   0.406  0.68482    
+## departmentOther        2.899e+09  2.325e+10   0.125  0.90082    
+## departmentUSDA         5.201e+09  2.329e+10   0.223  0.82335    
+## departmentVA           9.220e+08  2.323e+10   0.040  0.96836    
+## gdp                    1.489e-01  7.184e-03  20.722  < 2e-16 ***
+## discretionary_outlays  1.472e+00  4.689e-02  31.396  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for gaussian family taken to be 1.133344e+22)
+## 
+##     Null deviance: 7.1508e+26  on 587  degrees of freedom
+## Residual deviance: 6.4601e+24  on 570  degrees of freedom
+## AIC: 31548
+## 
+## Number of Fisher Scoring iterations: 2
+\end{verbatim}
+
+The result showed that the factor influences significantly are year, rd
+budget, department DOC, gdp and discreetionary outlays. The start
+meaning that has significantly influences to the variable.
+
+\subsection{Plotting the GLM}\label{plotting-the-glm}
+
+plotting the GLM result :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(glm_rd)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment3_BigData_files/figure-latex/glm plotting the rd data-1.pdf}
+\includegraphics{Assignment3_BigData_files/figure-latex/glm plotting the rd data-2.pdf}
+\includegraphics{Assignment3_BigData_files/figure-latex/glm plotting the rd data-3.pdf}
+\includegraphics{Assignment3_BigData_files/figure-latex/glm plotting the rd data-4.pdf}
+
+\subsection{Anova Test}\label{anova-test-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{anova}\NormalTok{(glm_rd)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Deviance Table
+## 
+## Model: gaussian, link: identity
+## 
+## Response: total_outlays
+## 
+## Terms added sequentially (first to last)
+## 
+## 
+##                       Df   Deviance Resid. Df Resid. Dev
+## NULL                                      587 7.1508e+26
+## year                   1 6.7994e+26       586 3.5138e+25
+## rd_budget              1 2.9410e+20       585 3.5138e+25
+## department            13 2.6820e+21       572 3.5136e+25
+## gdp                    1 1.7504e+25       571 1.7631e+25
+## discretionary_outlays  1 1.1171e+25       570 6.4601e+24
+\end{verbatim}
+
+The analysis of anova showed that the year has a high value for the Df
+and the residuls deviance showed that gdp has low residuals. The high
+residuals Deviance value is discretionary outlays.
+
+
+\end{document}
