@@ -1,0 +1,146 @@
+---
+title: "Rd_DataAssgn"
+author: "Agus Setiyawan"
+date: "4/15/2019"
+output: html_document
+---
+
+## Read the CSV data
+
+```{r Read the rd Data} 
+rd <- read.csv ("fed_r_d_spending.csv", header = TRUE)
+library(ggplot2)
+```
+
+## Summary
+```{r summary rd}
+summary (rd)
+```
+
+## Attach the data
+```{r attach the data}
+attach (rd)
+str (rd)
+
+names (rd)
+```
+
+## The type of the Variable
+```{r type of the variable}
+
+typeof (rd$rd_budget)
+typeof (rd$total_outlays)
+typeof (rd$discretionary_outlays)
+typeof (rd$gdp)
+```
+
+#Plotting
+
+Plotting the data rd (x = year, y = rd_budget): 
+```{r plotting the ggplot}
+ggplot(rd, aes( x = year, y = rd_budget, color = total_outlays)) +
+  geom_point()
+```
+The figure displayed that the rd_budget over time has increased from 1997 to 2018 by based on the total outylays inform that the total outlays has incrreasing as well over the time. 
+
+
+Plotting the data rd (x = year, y = rd_budget, based on the gdp):
+```{r plotting the ggplot 1}
+ggplot(rd, aes( x = year, y = rd_budget, color = gdp)) +
+  geom_point()
+```
+The figure dispyaed that the rd_budget has increased over time, as well as gdp has increased over time. 
+
+
+Plottting the data (x = year, y = rd_budget, based on the discreet outlays): 
+```{r plotting the ggplot 2}
+ggplot(rd, aes( x = year, y = rd_budget, color = discretionary_outlays)) +
+  geom_point()
+```
+The figure showed that the rd_budget has increased over time based on the discretionary_outlays. 
+
+
+Plotting the data (x = year, y = rd_budget based on the Department):
+```{r plot the data by ggplot 3}
+ggplot(rd, aes( x = year, y = rd_budget, color = department)) +
+  geom_point()
+```
+The figure displayed that based on the Department (DOD) has fluctuative over the time (1997 - 2018) and has a high value of the budget compare to the other Departement. 
+
+
+Plotting the data by linear model use the ggplot year and gdp: 
+```{r plotting the data by ggplot 4}
+ggplot(rd, aes(x = year, y =gdp)) +
+  geom_point() + geom_smooth(method="lm") + facet_wrap (~department)
+```
+The figure displayed that based on the linear model showed the gdp has increase over time time based on the all Department. 
+
+
+Plotting the data by linear model use the ggplot year and budget:
+```{r plotting the data by ggplot 5}
+ggplot(rd, aes(x = year, y =rd_budget)) +
+  geom_point() + geom_smooth(method="lm") + facet_wrap (~department)
+```
+The figure showed that DOD department has fluctuative distribution over the time, we can see that the increase of the budget has high significant increase over the time by linear model, also we can see the high slope. 
+NHS and NIH department are showed that increase significant compare than the other department, but the DOD Department has a high significantly increase over time. 
+
+
+Plotting the data by linear model use the ggplot year and total outlays:
+```{r plottimg the data by ggplot 6}
+ggplot(rd, aes(x = year, y =total_outlays)) +
+  geom_point() + geom_smooth(method="lm") + facet_wrap (~department)
+```
+The figure displayed that based on the total outlays over the time has increase, and the data fit to the line by linear model, it means that the data over time has significantly increase on the all Department over the time. 
+
+
+Plotting the data by linear model use the ggplot year and discretionary outlays:
+```{r plotting the data by ggplot 7}
+ggplot(rd, aes(x = year, y =discretionary_outlays)) +
+  geom_point() + geom_smooth(method="lm") + facet_wrap (~department)
+```
+The figure showed that over the time based on the all Department by the discretionary outlays has increased and the linear model has fitted to the line, it means that the data has increased significantly. 
+
+
+Plotting the data by glm on the ggplot over the time: 
+```{r plotting the data by ggplot-glm 1}
+ggplot(rd, aes(x = year, y = total_outlays, color = gdp))+
+  geom_point() + scale_x_log10() + geom_smooth(method = "glm")
+```
+The figure dispyaed that the total overlays data over the time has increased. The model has fitted to the data, it means that the data has increased significantly  over the time. 
+
+
+Plotting the data by glm on the ggplot over the time:
+```{r plotting the data by ggplot - glm 2}
+ggplot(rd, aes(x = year, y = total_outlays, color = rd_budget))+
+  geom_point() + scale_x_log10() + geom_smooth(method = "glm")
+```
+The figure showed that the rd budget has a low over time based on the color, but the total outlays has increased over the time. The data fitted to the line by glm, it means that the data has increased significantly over the time. 
+
+
+## GLM (Generalized Linear Model) Analysis 
+The GLM analysis is to assess what is the factor influence by the total outlays: m
+```{r GLM analysis}
+glm_rd <- glm(total_outlays ~ year + rd_budget + department + gdp + discretionary_outlays, family = gaussian, data = rd)
+```
+
+##Summary
+```{r summary glm rd}
+summary (glm_rd)
+```
+The result showed that the factor influences significantly are year, rd budget, department DOC, gdp and discreetionary outlays. 
+The start meaning that has significantly influences to the variable. 
+
+## Plotting the GLM
+plotting the GLM result :
+```{r glm plotting}
+plot(glm_rd)
+```
+
+## Anova Test
+```{r Anova test}
+anova(glm_rd)
+```
+The analysis of anova showed that the year has a high value for the Df and the residuls deviance showed that gdp has low residuals. The high residuals Deviance value is discretionary outlays. 
+
+
+
